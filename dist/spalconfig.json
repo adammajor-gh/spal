@@ -1,0 +1,33 @@
+{
+    "spalOptions" : {
+        "general": {
+            "homeName": "home",
+            "preloadMode": "all",
+            "isSuppressWarning": false,
+            "isDebugMode": true
+        },
+
+        "frame": [
+            {
+                "name": "header"
+            },
+            {
+                "name": "footer"
+            }
+        ],
+
+        "view": [
+            {
+                "name": "home",
+                "title": "Home",
+                "preload": true
+            },
+            {
+                "name": "contact",
+                "title": "Contact",
+                "preload": true
+            }
+        ]
+
+    }
+}
