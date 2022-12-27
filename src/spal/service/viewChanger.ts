@@ -1,6 +1,7 @@
 import { ViewElement } from "../class/ViewElement.js";
 import { Display } from "../common/display.js";
 import { Scanner } from "../common/scanner.js";
+import { Title } from "../common/title.js";
 
 export module ViewChanger {
     export function addAll(viewChangers: NodeListOf<Element>, viewElements: ViewElement[]) {
@@ -12,6 +13,8 @@ export module ViewChanger {
                 let viewElement: ViewElement = viewElements.find(viewElement => viewElement.name === viewName)!
                 
                 Display.view(viewElement);
+
+                Title.change(viewElement);
                 
                 let viewChangers: NodeListOf<Element> = Scanner.viewChangerScan();
                
