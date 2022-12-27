@@ -8,6 +8,7 @@ import { Scanner } from './spal/common/scanner.js';
 import { Frame } from './spal/service/frame.js';
 import { View } from './spal/service/view.js';
 import { ViewChanger } from './spal/service/viewChanger.js';
+import { Title } from './spal/common/title.js';
 
 //init process
 
@@ -39,6 +40,9 @@ async function init() {
 
     //display the home view
     Display.view(viewElements[0]);
+
+    //display the home view's title
+    Title.change(viewElements[0]);
 
     //scane the viewchangers on the home view
     let viewChangers: NodeListOf<Element> = Scanner.viewChangerScan();
