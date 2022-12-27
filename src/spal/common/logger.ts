@@ -3,9 +3,6 @@ export module logger {
     export let isDebugMode: boolean = false;
     export function log(level: string, msg: string) {
         switch(level) {
-            case 'info':
-                break;
-            
             case 'debug':
                 if (isDebugMode) {
                     console.debug(`DEBUG (${new Date(Date.now())}): ${msg}`);
@@ -13,7 +10,9 @@ export module logger {
                 break;
             
             case 'warning':
-                console.warn(`WARNING (${new Date(Date.now())}): ${msg}`);
+                if (!isSuppressWarning) {
+                    console.warn(`WARNING (${new Date(Date.now())}): ${msg}`);
+                }
                 break;
 
             case 'error':
