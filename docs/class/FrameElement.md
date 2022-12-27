@@ -16,6 +16,6 @@
 >Creates a frame element with the specified name, relative url and content.
 
 # Method summary
->### build(name: string): Promise<FrameElement>
->Create and return a Promise<FrameElement> type object with the specified name.
+>### build(name: string): Promise\<FrameElement>
+>Create and return a Promise\<FrameElement> type object with the specified name.
 >This method is required, because the JS/TS can't support async operations inside the constructor.

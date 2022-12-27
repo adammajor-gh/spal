@@ -22,6 +22,6 @@
 >Creates a view element with the specified name, title, relative url, content and preload functionality.
 
 # Method summary
->### build(name: string): Promise<ViewElement>
->Create and return a Promise<ViewElement> type object with the specified name, title and preload functionality.
+>### build(name: string): Promise\<ViewElement>
+>Create and return a Promise\<ViewElement> type object with the specified name, title and preload functionality.
 >This method is required, because the JS/TS can't support async operations inside the constructor.
