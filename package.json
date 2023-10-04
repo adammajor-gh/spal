@@ -7,6 +7,6 @@
     "mkTsOutDir": "mkdir ts-out",
     "copyConfig": "if exist src\\config xcopy /E /I src\\config\\ ts-out\\config\\",
     "tsCompiler": "tsc -w",
-    "SDev": "npm run rmTsOutDir && npm run mkTsOutDir && npm run copyConfig && npm run tsCompiler"
+    "SpalDev": "npm run rmTsOutDir && npm run mkTsOutDir && npm run copyConfig && npm run tsCompiler"
   }
 }
