@@ -1,5 +1,5 @@
 export module Initializer {
-    export function run() {
-        //This is the main initializer
+    export const run = () => {
+        console.log('Hello SPAL!');
     }
 }
