@@ -1,9 +1,9 @@
 export module FileReader {
 
-    export const readFile = async (url: string): Promise<string | object | undefined> => {
+    export const readFile = async (url: string) => {
 
         let readedFileContent: object | string
-        const extension: string = url.substring(url.lastIndexOf('.' + 1));
+        const extension: string = url.substring(url.lastIndexOf('.') + 1);
 
         switch (extension) {
             case 'json': {
@@ -17,12 +17,12 @@ export module FileReader {
             }
 
             default:
-                return undefined
+                return 'unknownFileFormat'
         }
     }
 }
 
-const readJson = (url: string) => {
+const readJson = (url: string): Promise<object> => {
     return new Promise((resolve) => {
         fetch(url).then(response => {
             resolve(response.json());
@@ -30,7 +30,7 @@ const readJson = (url: string) => {
     })
 }
 
-const readHtml = (url: string) => {
+const readHtml = (url: string): Promise<string> => {
     return new Promise((resolve) => {
         fetch(url).then(response => {
             resolve(response.text());
