@@ -4,7 +4,7 @@ import { Log } from "../class/Log.js";
 import { Context } from "../enum/Context.js"
 import { LogLevel } from "../enum/LogLevel.js"
 
-export module Logger {
+export module LoggerService {
     //let isInitialized: boolean = false;
     let logBuffer: Log[] = [];
     

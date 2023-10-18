@@ -1,3 +1,3 @@
-import { Initializer } from "./service/Initializer.js";
+import { Initializer } from "./service/InitializerService.js";
 
 Initializer.run();

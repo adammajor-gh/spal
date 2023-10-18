@@ -1,0 +1,8 @@
+{
+    "dev": {
+        "isDebugMode": true
+    },
+    "log": {
+        "isSuppressWarning": false
+    }
+}
