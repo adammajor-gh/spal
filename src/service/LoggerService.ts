@@ -1,32 +1,62 @@
-//import { Log } from "../class/Log";
-
 import { Log } from "../class/Log.js";
 import { Context } from "../enum/Context.js"
 import { LogLevel } from "../enum/LogLevel.js"
+import { SpalStateService } from "./SpalStateService.js";
+
+let isInitialized = false;
+let logBuffer: Log[] = [];
+const filterForDebugMode = [LogLevel.DEBUG, LogLevel.TRACE];
+const filterForSuppressWarning = [LogLevel.WARNING];
 
 export module LoggerService {
-    //let isInitialized: boolean = false;
-    let logBuffer: Log[] = [];
-    
 
     export const initialize = () => {
-
+        if (!SpalStateService.spalState.getIsDebugMode()) logBuffer = logBuffer.filter(log => !filterForDebugMode.includes(log.getLevel()));
+        if (SpalStateService.spalState.getIsSuppressWarning()) logBuffer = logBuffer.filter(log => !filterForSuppressWarning.includes(log.getLevel()));
+        processLogBuffer();
+        isInitialized = true;
     }
 
     export const createNewLog = (context: Context, level: LogLevel, message: unknown) => {
-        logBuffer.push(new Log(context, level, message));
-        processLogBuffer(logBuffer);
+
+        if (!isInitialized) {
+            logBuffer.push(new Log(context, level, message));
+        } else {
+            switch(level) {
+                case LogLevel.TRACE:
+                    if (SpalStateService.spalState.getIsDebugMode()) logBuffer.push(new Log(context, level, message));
+                    break;
+                
+                case LogLevel.DEBUG:
+                    if (SpalStateService.spalState.getIsDebugMode()) logBuffer.push(new Log(context, level, message));
+                    break;
+
+                case LogLevel.INFO:
+                    logBuffer.push(new Log(context, level, message));
+                    break;
+
+                case LogLevel.WARNING:
+                    if (!SpalStateService.spalState.getIsSuppressWarning()) logBuffer.push(new Log(context, level, message));
+                    break;
+
+                case LogLevel.ERROR:
+                    logBuffer.push(new Log(context, level, message));
+                    break;
+            }
+            processLogBuffer();
+        }
     }
 }
 
-const processLogBuffer = (logBuffer: Log[]) => {
-    logBuffer.forEach((log, index) => {
+const processLogBuffer = () => {
+    logBuffer.forEach((log) => {
         writeOutLog(log);
-        logBuffer.splice(index, logBuffer.length)
     });
+    logBuffer = [];
 }
 
 const writeOutLog = (log: Log) => {
+
     switch (log.getLevel()) {
 
         case LogLevel.INFO:
@@ -38,7 +68,7 @@ const writeOutLog = (log: Log) => {
             break;
 
         case LogLevel.DEBUG:
-            console.debug(`%c[${log.getContext()}] [${log.getLevel()}] (${log.getTimeStamp()}): ${log.getMessage()}`, log.getStyle());
+            console.log(`%c[${log.getContext()}] [${log.getLevel()}] (${log.getTimeStamp()}): ${log.getMessage()}`, log.getStyle());
             break;
 
         case LogLevel.WARNING:
