@@ -1,4 +1,4 @@
-export type SpalConfig = {
+export type AppConfig = {
     mode: {
         appDevMode: string
         appPreloadMode: string
