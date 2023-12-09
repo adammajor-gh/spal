@@ -1,6 +1,9 @@
 import { Context } from "../enum/Context.js";
+import { AppConfig } from "../type/AppConfig.js";
 import { SpalConfig } from "../type/SpalConfig.js";
 import { Log } from "../util/Log.js";
+import { AppConfigService } from "./AppConfigService.js";
+import { AppStateService } from "./AppStateService.js";
 import { LoggerService } from "./LoggerService.js";
 import { SpalConfigService } from "./SpalConfigService.js";
 import { SpalStateService } from "./SpalStateService.js";
@@ -11,9 +14,14 @@ export module Initializer {
         Log.trace(Context.SPAL, 'SPAL initialization process started');
 
         try{
-            const spalConfig: SpalConfig = await SpalConfigService.initialize();
+            const spalConfig: SpalConfig = await SpalConfigService.initialize() as SpalConfig;
             await SpalStateService.initialize(spalConfig);
+
             LoggerService.initialize();
+
+            const appConfig: AppConfig = await AppConfigService.initialize() as AppConfig;
+            await AppStateService.initialize(appConfig);
+
             Log.trace(Context.SPAL, 'SPAL initialization process success');
         } catch(error) {
             Log.error(Context.SPAL, `Error during the initialization process: ${error}`)
