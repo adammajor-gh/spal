@@ -2,4 +2,4 @@
 Single Page Application Lite
 
 ## How to run in SDev mode?
-npm run SDev
+npm run spaldev
