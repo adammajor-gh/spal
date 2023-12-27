@@ -1,11 +1,11 @@
 import { Context } from "../enum/Context.js";
 import { AppConfig } from "../type/AppConfig.js";
-import { FileReader } from "../util/FileReader.js";
-import { Log } from "../util/Log.js";
+import { FileReader } from "./FileReader.js";
+import { Log } from "./Log.js";
 
 const appConfigUrl = './config/appConfig.json'
 let appConfig: AppConfig;
-export module AppConfigService {
+export module AppConfigUtil {
 
     export const initialize = async () => {
 
