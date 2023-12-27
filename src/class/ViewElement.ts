@@ -5,6 +5,7 @@ import { DisplayService } from "../service/DisplayService.js";
 import { Context } from "../enum/Context.js";
 import { Log } from "../util/Log.js";
 import { TitleService } from "../service/TitleService.js";
+import { HistoryService } from "../service/HistoryService.js";
 
 export class ViewElement implements LayoutElement {
 
@@ -48,6 +49,14 @@ export class ViewElement implements LayoutElement {
             TitleService.displayTitle(this.title);
         } catch (error) {
             Log.error(Context.SPAL, `Error during displaying the title: ${this.title}; error: ${error}`);
+        }
+    }
+
+    pushHistoryState() {
+        try {
+            HistoryService.pushState(this.title, `/${this.name}`, {});
+        } catch (error) {
+            Log.debug(Context.SPAL, `Error during state pushing, title: ${this.title}, name: ${this.name}, error: ${error}`);
         }
     }
 
