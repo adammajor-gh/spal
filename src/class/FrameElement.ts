@@ -32,18 +32,27 @@ export class FrameElement implements LayoutElement {
     }
 
     display() {
-        DisplayService.displayLayoutElement(this.name, this.content, this.targetHtmlElement); 
+        try {
+            DisplayService.displayLayoutElement(this.name, this.content, this.targetHtmlElement);
+        } catch (error) {
+            Log.error(Context.SPAL, `Error during frame element displaying: ${error}`);
+        }
     }
 
     static build(url: string): Promise<FrameElement> {
-        Log.debug(Context.SPAL, `Attemt to build a new Frame element from: ${url}`);
         return new Promise (async (resolve) => {
-            const name = url.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
-            const htmlElementTagName = `spal-frame-${name}`;
-            Log.debug(Context.SPAL, `New Frame element name: ${name}`);
-            const content = await FileReader.readFile(url);
-            const targetHtmlElement: HTMLElement = HtmlElementUtil.getHtmlElementByName(htmlElementTagName);
-            resolve(new FrameElement(name, targetHtmlElement, url, content));
+            Log.debug(Context.SPAL, `Attemt to create new View Element: ${url.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'))}`);
+            try {
+                const name = url.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+                const targetHtmlElementName = `spal-frame-${name}`;
+                const targetHtmlElement: HTMLElement = HtmlElementUtil.getHtmlElementByName(targetHtmlElementName);
+                const content = await FileReader.readFile(url);
+                const frameElement = new FrameElement(name, targetHtmlElement, url, content);
+                Log.debug(Context.SPAL, `New view element created: ${name}`);
+                resolve(frameElement);
+            } catch (error) {
+                Log.error(Context.SPAL, `Error while createing a new View Element: ${url.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'))}`);
+            }
         })
     }
 }
