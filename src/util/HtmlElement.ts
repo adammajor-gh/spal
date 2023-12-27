@@ -1,8 +1,8 @@
 import { Context } from "../enum/Context.js";
 import { Log } from "./Log.js";
 
-export module LayoutElementTag {
-    export const get = (targetHtmlElementName: string): HTMLElement => {
+export module HtmlElementUtil {
+    export const getHtmlElementByName = (targetHtmlElementName: string): HTMLElement => {
 
         Log.debug(Context.SPAL, `Attemt to search HTML tag: ${targetHtmlElementName}`);
 
