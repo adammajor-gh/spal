@@ -1,18 +1,14 @@
-import { Context } from "../enum/Context.js"
-import { LayoutElementTag } from "../util/HtmlElement.js";
-import { Log } from "../util/Log.js"
+import { Context } from "../enum/Context.js";
+import { Log } from "../util/Log.js";
 
-export module Display {
-    export const displayLayoutElement = (name: string, content: string, targetHtmlElementName: string) => {
-        Log.debug(Context.SPAL, `Attemt to display layout element, name: ${name}; layout element tag name: ${targetHtmlElementName}`);
+export module DisplayService {
+    export const displayLayoutElement = (name: string, content: string, targetHtmlElement: HTMLElement) => {
+        Log.debug(Context.SPAL, `Attempt to display ${name} at ${targetHtmlElement.tagName}`);
         try {
-            
-            let targetHtmlElement: HTMLElement = LayoutElementTag.get(targetHtmlElementName);
-            console.log(targetHtmlElementName);
             targetHtmlElement.innerHTML = content;
-            Log.debug(Context.SPAL, `${name} displayed successfull in ${targetHtmlElementName}`);
+            Log.debug(Context.SPAL, `${name} displayed successfully in ${targetHtmlElement.tagName}`);
         } catch (error) {
-            Log.error(Context.SPAL, `Error during diplaying the content, name: ${name}, HTML element: ${targetHtmlElementName}`);
+            Log.error(Context.SPAL, `Error, whilse displaying ${name} at ${targetHtmlElement.tagName}, error: ${error}`);
         }
     }
 }
