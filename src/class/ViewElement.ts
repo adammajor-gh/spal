@@ -4,6 +4,7 @@ import { HtmlElementUtil } from "../util/HtmlElement.js";
 import { DisplayService } from "../service/DisplayService.js";
 import { Context } from "../enum/Context.js";
 import { Log } from "../util/Log.js";
+import { TitleService } from "../service/TitleService.js";
 
 export class ViewElement implements LayoutElement {
 
@@ -34,11 +35,19 @@ export class ViewElement implements LayoutElement {
         return this.content;
     }
 
-    display() {
+    displayElement() {
         try {
             DisplayService.displayLayoutElement(this.name, this.content, this.targetHtmlElement);
         } catch (error) {
             Log.error(Context.SPAL, `Error during view element displaying: ${error}`);
+        }
+    }
+
+    displayTitle() {
+        try {
+            TitleService.displayTitle(this.title);
+        } catch (error) {
+            Log.error(Context.SPAL, `Error during displaying the title: ${this.title}; error: ${error}`);
         }
     }
 
