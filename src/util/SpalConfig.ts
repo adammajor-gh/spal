@@ -1,11 +1,11 @@
 import { Context } from "../enum/Context.js";
 import { SpalConfig } from "../type/SpalConfig.js";
-import { FileReader } from "../util/FileReader.js";
-import { Log } from "../util/Log.js";
+import { FileReader } from "./FileReader.js";
+import { Log } from "./Log.js";
 
 const spalConfigUrl = './config/spalConfig.json'
 let spalConfig: SpalConfig;
-export module SpalConfigService {
+export module SpalConfigUtil {
 
     export const initialize = async () => {
 

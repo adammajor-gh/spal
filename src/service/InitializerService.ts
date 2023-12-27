@@ -1,12 +1,12 @@
 import { Context } from "../enum/Context.js";
-import { AppConfig } from "../type/AppConfig.js";
-import { SpalConfig } from "../type/SpalConfig.js";
 import { Log } from "../util/Log.js";
-import { AppConfigService } from "./AppConfigService.js";
+import { AppConfigUtil } from "../util/AppConfig.js";
 import { AppStateService } from "./AppStateService.js";
 import { LoggerService } from "./LoggerService.js";
-import { SpalConfigService } from "./SpalConfigService.js";
+import { SpalConfigUtil } from "../util/SpalConfig.js";
 import { SpalStateService } from "./SpalStateService.js";
+import { SpalConfig } from "../type/SpalConfig.js";
+import { AppConfig } from "../type/AppConfig.js";
 
 export module Initializer {
     export const run = async () => {
@@ -14,12 +14,12 @@ export module Initializer {
         Log.trace(Context.SPAL, 'SPAL initialization process started');
 
         try{
-            const spalConfig: SpalConfig = await SpalConfigService.initialize() as SpalConfig;
+            const spalConfig: SpalConfig = await SpalConfigUtil.initialize() as SpalConfig;
             await SpalStateService.initialize(spalConfig);
 
             LoggerService.initialize();
 
-            const appConfig: AppConfig = await AppConfigService.initialize() as AppConfig;
+            const appConfig: AppConfig = await AppConfigUtil.initialize() as AppConfig;
             await AppStateService.initialize(appConfig);
 
             Log.trace(Context.SPAL, 'SPAL initialization process success');
