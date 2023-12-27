@@ -31,7 +31,7 @@ export class FrameElement implements LayoutElement {
         return this.content;
     }
 
-    display() {
+    displayElement() {
         try {
             DisplayService.displayLayoutElement(this.name, this.content, this.targetHtmlElement);
         } catch (error) {
