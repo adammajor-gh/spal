@@ -7,12 +7,9 @@ import { SpalConfigUtil } from "../util/SpalConfig.js";
 import { SpalStateService } from "./SpalStateService.js";
 import { SpalConfig } from "../type/SpalConfig.js";
 import { AppConfig } from "../type/AppConfig.js";
-//import { ViewChanger } from "../util/ViewChanger.js";
 import { DirectoryReader } from "../util/DirectoryReader.js";
-//import { HtmlElementUtil } from "../util/HtmlElement.js";
 import { FrameElement } from "../class/FrameElement.js";
 import { ViewElement } from "../class/ViewElement.js";
-//import { FileReader } from "../util/FileReader.js";
 
 export module Initializer {
     export const run = async () => {
@@ -29,28 +26,36 @@ export module Initializer {
             await AppStateService.initialize(appConfig);
 
 
-            //This is for cheatsheet purpose
-            const frameDirectories = await DirectoryReader.readDirectoryContent('./frame');
-            const viewDirectories = await DirectoryReader.readDirectoryContent('./view');
-            let frameElements: FrameElement[] = [];
-            let viewElements: ViewElement[] = [];
+            //This is cheatsheet for test purpose
+            const frameDirectoryNames: string[] = await DirectoryReader.readDirectoryContent('./frame');
+            const viewDirectoryNames: string[] = await DirectoryReader.readDirectoryContent('./view');
 
-            frameDirectories.forEach(async frameDirectoryName => {
-                frameElements.push(await FrameElement.build(`./frame/${frameDirectoryName}/${frameDirectoryName}.html`));
-            });
 
-            viewDirectories.forEach(async viewElementDirectoryName => {
-                viewElements.push(await ViewElement.build(`${viewElementDirectoryName}`, `./view/${viewElementDirectoryName}/${viewElementDirectoryName}.html`));
-            });
+            //This is how you need to deal with multiple promises in an array
+            const generateFrames = (frameDirectoryNames: string[]) => {
+                    let frameElements: FrameElement[] = [];
+                    frameDirectoryNames.forEach(async frameDirectoryName => {
+                        const frameElement = FrameElement.build(`./frame/${frameDirectoryName}/${frameDirectoryName}.html`) as unknown as FrameElement;
+                        frameElements.push(frameElement);
+                    });
+                    return Promise.all(frameElements);
+            }
 
-            console.log(frameElements);
-            console.log(viewElements);
+            const generateViews = (viewDirectoryNames: string[]) => {
+                let viewElements: ViewElement[] = [];
 
-            frameElements[0].displayElement();
-
+                viewDirectoryNames.forEach(viewDirectoryName => {
+                    const viewElement = ViewElement.build(viewDirectoryName, `./view/${viewDirectoryName}/${viewDirectoryName}.html`) as unknown as ViewElement;
+                    viewElements.push(viewElement);
+                });
+                return Promise.all(viewElements);
+            }
             
+            const frameElements: FrameElement[] = await generateFrames(frameDirectoryNames) as FrameElement[];
+            const viewElements: ViewElement[] = await generateViews(viewDirectoryNames) as ViewElement[];
 
-
+            console.log(frameElements[0]);
+            console.log(viewElements[0]);
             //-----------------------------
 
 
