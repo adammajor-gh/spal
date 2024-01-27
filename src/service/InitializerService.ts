@@ -10,6 +10,7 @@ import { AppConfig } from "../type/AppConfig.js";
 import { DirectoryReader } from "../util/DirectoryReader.js";
 import { FrameElement } from "../class/FrameElement.js";
 import { ViewElement } from "../class/ViewElement.js";
+import { LayoutService } from "./LayoutService.js";
 
 export module Initializer {
     export const run = async () => {
@@ -24,6 +25,8 @@ export module Initializer {
 
             const appConfig: AppConfig = await AppConfigUtil.initialize() as AppConfig;
             await AppStateService.initialize(appConfig);
+
+            await LayoutService.initialize();
 
 
             //This is cheatsheet for test purpose
@@ -56,6 +59,8 @@ export module Initializer {
 
             console.log(frameElements[0]);
             console.log(viewElements[0]);
+
+            
             //-----------------------------
 
 
