@@ -1,7 +1,7 @@
 import { Context } from "../enum/Context.js";
 import { Log } from "./Log.js";
 
-export module directoryReader {
+export module DirectoryReader {
     export const readDirectoryContent = async (url: string): Promise<string[]> => {
         try {
             let readedDirectory = await fetchDirectory(url) as string;
