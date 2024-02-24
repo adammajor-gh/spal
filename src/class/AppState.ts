@@ -1,8 +1,13 @@
+import { DevMode } from "../enum/Devmode.js";
 import { AppConfig } from "../type/AppConfig.js"
+import { FrameElement } from "./FrameElement.js";
+import { ViewElement } from "./ViewElement.js";
 
 export class AppState {
-    private readonly appDevMode: string
+    private readonly appDevMode: DevMode
     private readonly appPreloadMode: string
+    private loadedFrameElements: FrameElement[] = []
+    private loadedViewElements: ViewElement[] = []
 
     public constructor (appConfig: AppConfig) {
         this.appDevMode = appConfig.mode.appDevMode;
@@ -15,5 +20,21 @@ export class AppState {
 
     public getAppPreloadMode(): string {
         return this.appPreloadMode;
+    }
+
+    public getLoadedFrameElements(): FrameElement[] {
+        return this.loadedFrameElements;
+    }
+
+    public setLoadedFrameElements(frameElements: FrameElement[]) {
+        this.loadedFrameElements = frameElements;
+    }
+
+    public getLoadedViewelements(): ViewElement[] {
+        return this.loadedViewElements;
+    }
+
+    public setLoadedViewElements(viewElements: ViewElement[]) {
+        this.loadedViewElements = viewElements;
     }
 }
