@@ -6,14 +6,12 @@ import { ViewElement } from "./ViewElement.js";
 export class AppState {
     private readonly appDevMode: DevMode
     private readonly appPreloadMode: string
-    private loadedFrameElements: FrameElement[]
-    private loadedViewElements: ViewElement[]
+    private loadedFrameElements: FrameElement[] = []
+    private loadedViewElements: ViewElement[] = []
 
-    public constructor (appConfig: AppConfig, frameElements: FrameElement[], viewElements: ViewElement[]) {
+    public constructor (appConfig: AppConfig) {
         this.appDevMode = appConfig.mode.appDevMode;
         this.appPreloadMode = appConfig.mode.appPreloadMode;
-        this.loadedFrameElements = frameElements;
-        this.loadedViewElements = viewElements;
     }
 
     public getAppDevMode(): string {
@@ -28,7 +26,15 @@ export class AppState {
         return this.loadedFrameElements;
     }
 
+    public setLoadedFrameElements(frameElements: FrameElement[]) {
+        this.loadedFrameElements = frameElements;
+    }
+
     public getLoadedViewelements(): ViewElement[] {
         return this.loadedViewElements;
+    }
+
+    public setLoadedViewElements(viewElements: ViewElement[]) {
+        this.loadedViewElements = viewElements;
     }
 }
