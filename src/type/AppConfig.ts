@@ -1,6 +1,8 @@
+import { DevMode } from "../enum/Devmode"
+
 export type AppConfig = {
     mode: {
-        appDevMode: string
+        appDevMode: DevMode
         appPreloadMode: string
     }
 }
