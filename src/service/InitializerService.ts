@@ -9,6 +9,7 @@ import { SpalConfig } from "../type/SpalConfig.js";
 import { AppConfig } from "../type/AppConfig.js";
 import { LayoutService } from "./LayoutService.js";
 import { DevModeService } from "./DevModeService.js";
+import { PreloadModeService } from "./PreloadModeService.js";
 
 export module Initializer {
     export const run = async () => {
@@ -26,7 +27,8 @@ export module Initializer {
 
             await LayoutService.initialize();
 
-            DevModeService.initDevModeService();
+            await DevModeService.initDevModeService();
+            await PreloadModeService.initPreloadModeService();
 
             Log.trace(Context.SPAL, 'SPAL initialization process success');
         } catch(error) {
