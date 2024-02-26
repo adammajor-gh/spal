@@ -1,4 +1,4 @@
-import { DevMode } from "../enum/Devmode.js";
+import { DevMode } from "../enum/DevMode.js";
 import { AppConfig } from "../type/AppConfig.js"
 import { FrameElement } from "./FrameElement.js";
 import { ViewElement } from "./ViewElement.js";

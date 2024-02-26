@@ -1,4 +1,4 @@
-import { DevMode } from "../enum/Devmode"
+import { DevMode } from "../enum/DevMode.js"
 
 export type AppConfig = {
     mode: {

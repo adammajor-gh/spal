@@ -2,7 +2,7 @@
 import { FrameElement } from "../class/FrameElement.js"
 import { ViewElement } from "../class/ViewElement.js"
 import { Context } from "../enum/Context.js"
-import { DevMode } from "../enum/Devmode.js"
+import { DevMode } from "../enum/DevMode.js"
 import { DirectoryReader } from "../util/DirectoryReader.js"
 import { Log } from "../util/Log.js"
 import { AppStateService } from "./AppStateService.js"
