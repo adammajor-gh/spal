@@ -1,6 +1,4 @@
 
-import { FrameElement } from "../class/FrameElement.js"
-import { ViewElement } from "../class/ViewElement.js"
 import { Context } from "../enum/Context.js"
 import { DevMode } from "../enum/DevMode.js"
 import { DirectoryReader } from "../util/DirectoryReader.js"
@@ -22,36 +20,10 @@ export module DevModeService {
 
     const initRapidDevMode = async () => {
         try {
-        const frameDirectoryNames: string[] = await DirectoryReader.readDirectoryContent('./frame');
-        AppStateService.appState.setLoadedFrameElements(await generateFrames(frameDirectoryNames) as FrameElement[]);
-        
-        const viewDirectoryNames: string[] = await DirectoryReader.readDirectoryContent('./view');
-        AppStateService.appState.setLoadedViewElements(await generateViews(viewDirectoryNames) as ViewElement[])
+        AppStateService.appState.setFrameDirectoryNames(await DirectoryReader.readDirectoryContent('./frame'))
+        AppStateService.appState.setViewDirectoryNames(await DirectoryReader.readDirectoryContent('./view'))
         } catch (error) {
             Log.error(Context.SPAL, `Error during Rapid dev mode initialization: ${error}`);
         }
-    }
-
-    const generateFrames = (frameDirectoryNames: string[]) => {
-        try {
-            let frameElements: FrameElement[] = [];
-            frameDirectoryNames.forEach(async frameDirectoryName => {
-                const frameElement = FrameElement.build(`./frame/${frameDirectoryName}/${frameDirectoryName}.html`) as unknown as FrameElement;
-                frameElements.push(frameElement);
-            });
-            return Promise.all(frameElements);
-        } catch (error) {
-            Log.error(Context.SPAL, `Error during generating frames: ${error}`);
-            return undefined
-        }
-    }
-
-    const generateViews = (viewDirectoryNames: string[]) => {
-        let viewElements: ViewElement[] = [];
-        viewDirectoryNames.forEach(async viewDirectoryName => {
-            const viewElement = ViewElement.build(viewDirectoryName, `./view/${viewDirectoryName}/${viewDirectoryName}.html`) as unknown as ViewElement;
-            viewElements.push(viewElement);
-        });
-        return Promise.all(viewElements);
     }
 }
