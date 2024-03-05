@@ -10,7 +10,7 @@ import { AppConfig } from "../type/AppConfig.js";
 import { LayoutService } from "./LayoutService.js";
 import { DevModeService } from "./DevModeService.js";
 import { PreloadModeService } from "./PreloadModeService.js";
-import { ViewChanger } from "../util/ViewChanger.js";
+import { ViewchangerService } from "./ViewchangerService.js";
 
 export module Initializer {
     export const run = async () => {
@@ -33,7 +33,8 @@ export module Initializer {
 
             AppStateService.appState.getLoadedViewelements()[1].displayElement();
 
-            ViewChanger.scan();
+            ViewchangerService.refreshViewChangers();
+            console.log(AppStateService.appState)
 
             Log.trace(Context.SPAL, 'SPAL initialization process success');
         } catch(error) {
