@@ -2,6 +2,7 @@ import { DevMode } from "../enum/DevMode.js";
 import { PreloadMode } from "../enum/PreloadMode.js";
 import { AppConfig } from "../type/AppConfig.js"
 import { FrameElement } from "./FrameElement.js";
+import { ViewChanger } from "./ViewChanger.js";
 import { ViewElement } from "./ViewElement.js";
 
 export class AppState {
@@ -11,6 +12,7 @@ export class AppState {
     private viewDirectoryNames: string [] = []
     private loadedFrameElements: FrameElement[] = []
     private loadedViewElements: ViewElement[] = []
+    private loadedViewChangers: ViewChanger[] = []
 
     public constructor (appConfig: AppConfig) {
         this.appDevMode = appConfig.mode.appDevMode;
@@ -55,5 +57,17 @@ export class AppState {
 
     public setLoadedViewElements(viewElements: ViewElement[]) {
         this.loadedViewElements = viewElements;
+    }
+
+    public getLoadedViewChangers(): ViewChanger[] {
+        return this.loadedViewChangers;
+    }
+
+    public setLoadedViewChangers(viewChangers: ViewChanger[]) {
+        this.loadedViewChangers = viewChangers;
+    }
+
+    public clearLoadedViewChangers() {
+        this.loadedViewChangers = [];
     }
 }
